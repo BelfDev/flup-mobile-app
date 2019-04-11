@@ -15,10 +15,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        def baseUrl = [ flup : "https://flup.furfles.com.br/api"]
+
+        all {
+            buildConfigField 'String', 'BASE_URL_FLUP', "\"${baseUrl.flup}\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
 }
 

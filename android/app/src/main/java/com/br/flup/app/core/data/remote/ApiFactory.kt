@@ -13,7 +13,7 @@ object ApiFactory {
     private val authInterceptor = Interceptor {chain->
         val newUrl = chain.request().url()
             .newBuilder()
-            .addQueryParameter("Token", "XPTO")
+            .addQueryParameter("Token", "PLEASE INSERT")
             .build()
 
         val newRequest = chain.request()
@@ -44,6 +44,10 @@ object ApiFactory {
     private val flupClient = okHttpDefaultBuilder()
         .addInterceptor(authInterceptor)
         .build()
+
+    /**
+     * Services
+     */
 
     val flupApiService = retrofit(BuildConfig.BASE_URL_FLUP, flupClient).create(FlupApi::class.java)
 

@@ -13,12 +13,12 @@ object APIFactory {
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url()
             .newBuilder()
-            .addQueryParameter("Token", "PLEASE INSERT")
             .build()
 
         val newRequest = chain.request()
             .newBuilder()
             .url(newUrl)
+            .addHeader("Authorization", "Bearer " + "INSERT-TOKEN")
             .build()
 
         chain.proceed(newRequest)

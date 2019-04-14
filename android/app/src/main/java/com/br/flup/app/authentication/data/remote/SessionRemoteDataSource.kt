@@ -10,13 +10,11 @@ import com.br.flup.app.core.data.remote.APIFactory
 import com.br.flup.app.core.model.*
 import io.reactivex.Single
 
-class SessionRemoteDataSource : SessionDataContract.Remote {
+object SessionRemoteDataSource : SessionDataContract.Remote {
+
+    private const val MAX_RETRIES = 4
 
     private val flupAPIService = APIFactory.flupAPIService
-
-    companion object {
-        private const val MAX_RETRIES = 4
-    }
 
     override fun signInEvent(signInForm: SignInForm): Single<SignInResult> =
         flupAPIService

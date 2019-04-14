@@ -10,7 +10,7 @@ import io.reactivex.subjects.PublishSubject
 
 class SessionRepository(private val compositeDisposable: CompositeDisposable) : SessionDataContract.Repository {
 
-    private val remote = SessionRemoteDataSource()
+    private val remote = SessionRemoteDataSource
     private val scheduler = AppScheduler()
 
     override val signInEventOutcome: PublishSubject<Outcome<SignInResult>>

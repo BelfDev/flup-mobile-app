@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object APIFactory {
 
@@ -31,6 +32,9 @@ object APIFactory {
             logging.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(logging)
         }
+        builder.connectTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
         return builder
     }
 

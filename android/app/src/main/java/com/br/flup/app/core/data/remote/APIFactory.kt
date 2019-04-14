@@ -8,9 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiFactory {
+object APIFactory {
 
-    private val authInterceptor = Interceptor {chain->
+    private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url()
             .newBuilder()
             .addQueryParameter("Token", "PLEASE INSERT")
@@ -24,7 +24,7 @@ object ApiFactory {
         chain.proceed(newRequest)
     }
 
-    private fun okHttpDefaultBuilder() : OkHttpClient.Builder  {
+    private fun okHttpDefaultBuilder(): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
@@ -34,7 +34,7 @@ object ApiFactory {
         return builder
     }
 
-    private fun retrofit(baseUrl: String, client: OkHttpClient) : Retrofit = Retrofit.Builder()
+    private fun retrofit(baseUrl: String, client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
@@ -49,6 +49,6 @@ object ApiFactory {
      * Services
      */
 
-    val flupApiService = retrofit(BuildConfig.BASE_URL_FLUP, flupClient).create(FlupApi::class.java)
+    val flupAPIService: FlupAPI = retrofit(BuildConfig.BASE_URL_FLUP, flupClient).create(FlupAPI::class.java)
 
 }

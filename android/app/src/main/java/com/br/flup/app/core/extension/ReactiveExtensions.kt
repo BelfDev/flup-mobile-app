@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  * */
 fun Completable.performOnBackOutOnMain(scheduler: Scheduler): Completable {
     return this.subscribeOn(scheduler.io())
-            .observeOn(scheduler.mainThread())
+        .observeOn(scheduler.mainThread())
 }
 
 /**
@@ -21,7 +21,7 @@ fun Completable.performOnBackOutOnMain(scheduler: Scheduler): Completable {
  * */
 fun <T> Flowable<T>.performOnBackOutOnMain(scheduler: Scheduler): Flowable<T> {
     return this.subscribeOn(scheduler.io())
-            .observeOn(scheduler.mainThread())
+        .observeOn(scheduler.mainThread())
 }
 
 /**
@@ -29,7 +29,7 @@ fun <T> Flowable<T>.performOnBackOutOnMain(scheduler: Scheduler): Flowable<T> {
  * */
 fun <T> Single<T>.performOnBackOutOnMain(scheduler: Scheduler): Single<T> {
     return this.subscribeOn(scheduler.io())
-            .observeOn(scheduler.mainThread())
+        .observeOn(scheduler.mainThread())
 }
 
 /**
@@ -37,7 +37,7 @@ fun <T> Single<T>.performOnBackOutOnMain(scheduler: Scheduler): Single<T> {
  * */
 fun <T> Observable<T>.performOnBackOutOnMain(scheduler: Scheduler): Observable<T> {
     return this.subscribeOn(scheduler.io())
-            .observeOn(scheduler.mainThread())
+        .observeOn(scheduler.mainThread())
 }
 
 /**

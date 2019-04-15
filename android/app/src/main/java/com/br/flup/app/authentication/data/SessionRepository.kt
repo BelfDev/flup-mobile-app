@@ -13,11 +13,11 @@ class SessionRepository(private val compositeDisposable: CompositeDisposable) : 
     private val remote = SessionRemoteDataSource
     private val scheduler = AppScheduler()
 
-    override val signInEventOutcome: PublishSubject<Outcome<SignInResult>>
-        get() = PublishSubject.create<Outcome<SignInResult>>()
+    override val signInEventOutcome: PublishSubject<Outcome<SignInResult>> =
+        PublishSubject.create<Outcome<SignInResult>>()
 
-    override val signInEmployeeOutcome: PublishSubject<Outcome<SignInResult>>
-        get() = PublishSubject.create<Outcome<SignInResult>>()
+    override val signInEmployeeOutcome: PublishSubject<Outcome<SignInResult>> =
+        PublishSubject.create<Outcome<SignInResult>>()
 
     override fun signInEvent(signInForm: SignInForm) {
         signInEventOutcome.loading(true)

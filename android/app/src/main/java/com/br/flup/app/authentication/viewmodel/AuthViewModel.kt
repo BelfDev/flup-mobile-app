@@ -27,7 +27,7 @@ class AuthViewModel : DisposingViewModel() {
     }
 
     fun signInEmployee(signInForm: SignInForm) {
-        if (signInEventOutcome.value == null) {
+        if (signInEmployeeOutcome.value == null) {
             repo.signInEmployee(signInForm)
         }
     }

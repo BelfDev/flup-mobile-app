@@ -12,7 +12,7 @@ import com.br.flup.app.authentication.viewmodel.AuthViewModel
 import com.br.flup.app.core.data.Outcome.*
 import com.br.flup.app.core.extension.getViewModel
 
-class MainActivity : AppCompatActivity() {
+class CoreActivity : AppCompatActivity() {
 
     private val vm by lazy {
         getViewModel { AuthViewModel() }

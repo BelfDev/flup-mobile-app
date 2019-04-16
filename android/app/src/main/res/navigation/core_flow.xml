@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/authentication_flow">
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/authentication_flow"
+            app:startDestination="@id/authFragment">
 
+    <fragment android:id="@+id/authFragment" android:name="com.br.flup.app.authentication.ui.AuthFragment"
+              android:label="auth_fragment" tools:layout="@layout/auth_fragment"/>
 </navigation>

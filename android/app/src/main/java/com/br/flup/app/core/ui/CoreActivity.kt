@@ -18,52 +18,9 @@ class CoreActivity : AppCompatActivity() {
         getViewModel { AuthViewModel() }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val eventSignInForm = SignInForm("josh", "456123")
-        vm.signInEvent(eventSignInForm)
-
-        initDataListeners()
-    }
-
-    private fun initDataListeners() {
-        vm.signInEventOutcome.observe(this, Observer { outcome ->
-            when (outcome) {
-
-                is Progress -> {
-                    println("LOADING")
-                }
-
-                is Success -> {
-
-                    Toast.makeText(
-                        this,
-                        "SUCCESS",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    val event = outcome.data as Event
-                    println(event.token)
-                }
-
-                is Failure -> {
-                    Toast.makeText(
-                        this,
-                        "FAILURE",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    val failure = outcome.data as SignInFailure
-                    println(failure.errorMessage)
-                }
-
-                is Error -> {
-                    println(outcome.e)
-                }
-
-            }
-        })
     }
 
 }

@@ -1,11 +1,31 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorPrimary">@color/navyTeal</item>
+        <item name="colorSecondary">@color/gold</item>
+
+        <item name="android:statusBarColor">@color/whiteDark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+
+        <item name="android:colorBackground">@color/whiteSmooth</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/whiteSmooth</item>
+
+        <item name="colorOnPrimary">@color/whiteSmooth</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="colorPrimaryVariant">@color/navyTealLight</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorSecondaryVariant">@color/goldLight</item>
+
+        <item name="colorSurface">@color/whiteSmooth</item>
+
+        <item name="colorOnBackground">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
+
     </style>
 
 </resources>

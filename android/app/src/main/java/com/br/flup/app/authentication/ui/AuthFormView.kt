@@ -1,10 +1,14 @@
 package com.br.flup.app.authentication.ui
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.br.flup.app.R
 
@@ -86,6 +90,21 @@ class AuthFormView @JvmOverloads constructor(
         canvas.drawRoundRect(RectF(0f, 0f, width.toFloat(), height.toFloat()), cornerRadius, cornerRadius, paint)
 
         return mask
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            outlineProvider = CustomOutline(w, h)
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private inner class CustomOutline internal constructor(internal var width: Int, internal var height: Int) :
+        ViewOutlineProvider() {
+
+        override fun getOutline(view: View, outline: Outline) {
+            outline.setRoundRect(0, 0, width, height, cornerRadius)
+        }
     }
 
 }

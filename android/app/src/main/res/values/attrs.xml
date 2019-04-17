@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="auth_form_view_attributes">
-        <attr name="custom_title" format="string"/>
+        <attr name="corner_radius" format="integer"/>
     </declare-styleable>
 </resources>

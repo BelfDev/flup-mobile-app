@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gold"
->
+        tools:layout_width="296dp"
+        tools:layout_height="243dp"
+        tools:layout_gravity="center">
 
     <TextView
             android:id="@+id/testText"

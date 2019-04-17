@@ -7,7 +7,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.br.flup.app.R
-import kotlinx.android.synthetic.main.auth_form_view.view.*
 
 
 class AuthFormView @JvmOverloads constructor(
@@ -17,7 +16,7 @@ class AuthFormView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttrs) {
 
     companion object {
-        private const val CORNER_RADIUS = 40.0f
+        private const val DEFAULT_CORNER_RADIUS = 8
     }
 
     private var maskBitmap: Bitmap? = null
@@ -29,7 +28,7 @@ class AuthFormView @JvmOverloads constructor(
         LayoutInflater.from(context)
             .inflate(R.layout.auth_form_view, this, true)
         applyCustomAttributes(attrs)
-        applyBorderRadius()
+        applyCornerRadius()
     }
 
     private fun applyCustomAttributes(attrs: AttributeSet?) {
@@ -39,16 +38,17 @@ class AuthFormView @JvmOverloads constructor(
                 R.styleable.auth_form_view_attributes, 0, 0
             )
 
-            val title = typedArray.getString(R.styleable.auth_form_view_attributes_custom_title)
-            testText.text = title
+            cornerRadius =
+                typedArray.getInteger(R.styleable.auth_form_view_attributes_corner_radius, DEFAULT_CORNER_RADIUS)
+                    .toFloat()
 
             typedArray.recycle()
         }
     }
 
-    private fun applyBorderRadius() {
+    private fun applyCornerRadius() {
         val metrics = context.resources.displayMetrics
-        cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CORNER_RADIUS, metrics)
+        cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, cornerRadius, metrics)
 
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
 

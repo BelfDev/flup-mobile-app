@@ -24,6 +24,19 @@
             android:contentDescription="@string/app_name"/>
 
     <include
+            android:id="@+id/authRearAuthFormView"
+            layout="@layout/auth_rear_form_view"
+            android:layout_width="0dp"
+            android:layout_height="243dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/authFormView"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="16dp">
+    </include>
+
+    <include
             android:id="@+id/authFormView"
             layout="@layout/auth_form_view"
             android:layout_width="0dp"

@@ -82,6 +82,9 @@ dependencies {
     // Design - material design components
     implementation "com.google.android.material:material:$material_version"
 
+    // Animations
+    implementation "com.andkulikov:transitionseverywhere:2.0.0-beta01"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'

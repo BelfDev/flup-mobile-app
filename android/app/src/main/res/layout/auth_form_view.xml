@@ -3,13 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/whiteSmooth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_width="296dp"
         tools:layout_height="243dp"
-        android:background="@color/whiteSmooth"
-        android:clipChildren="true"
-        android:clipToPadding="true"
         tools:layout_gravity="center">
 
     <TextView

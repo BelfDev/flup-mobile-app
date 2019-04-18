@@ -73,8 +73,10 @@ class AuthFormView @JvmOverloads constructor(
             maskBitmap = createMask(canvas.width, canvas.height)
         }
 
-        offscreenCanvas.drawBitmap(maskBitmap, 0f, 0f, maskPaint)
-        canvas.drawBitmap(offscreenBitmap, 0f, 0f, paint)
+        maskBitmap?.let {
+            offscreenCanvas.drawBitmap(it, 0f, 0f, maskPaint)
+            canvas.drawBitmap(offscreenBitmap, 0f, 0f, paint)
+        }
     }
 
     private fun createMask(width: Int, height: Int): Bitmap {

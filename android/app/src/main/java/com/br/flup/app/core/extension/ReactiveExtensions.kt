@@ -97,7 +97,7 @@ fun <T> Single<T>.mapNetworkErrors(): Single<T> =
  * to domain class and combine those two cases into single stream of R
  * */
 inline fun <reified T : R, R> Single<out R>.mapError(): Single<R> =
-    this.map { it as R }
+    this.map { it }
         .onErrorResumeNext { error ->
             if (error is HttpException && error.code() >= 400) {
                 mapErrorBody(error, T::class.java)?.let {

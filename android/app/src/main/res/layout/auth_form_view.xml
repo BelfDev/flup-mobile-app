@@ -35,10 +35,10 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="32dp"
                 app:hintAnimationEnabled="true"
-                android:hint="Usuário"
+                android:hint="@string/username_hint"
                 app:startIconDrawable="@drawable/ic_account_box"
                 app:startIconTint="@color/black"
-                app:helperText="Conta do evento">
+                app:helperText="@string/event_text_input_helper">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/usernameInput"
@@ -65,7 +65,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Senha"
+                android:hint="@string/password_hint"
                 app:hintAnimationEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/black"
@@ -85,11 +85,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-                android:text="Esqueceu sua senha?"
+                android:id="@+id/textView"
+                android:text="@string/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="@+id/passwordInputLayout"
                 android:layout_marginEnd="0dp"

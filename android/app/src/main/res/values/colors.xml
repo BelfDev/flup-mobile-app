@@ -13,5 +13,6 @@
     <color name="whiteDark">#f0f0f0</color>
 
     <color name="red">#c62828</color>
-    <color name="gray">#e0e0e0</color>
+    <color name="grayLight">#e0e0e0</color>
+    <color name="gray">#696969</color>
 </resources>

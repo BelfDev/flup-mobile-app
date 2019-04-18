@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Flup</string>
+    <string name="event_text_input_helper">Conta do evento</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="password_hint">Senha</string>
+    <string name="username_hint">Usuário</string>
 </resources>

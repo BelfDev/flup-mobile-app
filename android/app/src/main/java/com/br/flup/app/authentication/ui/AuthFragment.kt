@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
 import com.br.flup.app.core.extension.getViewModel
-import kotlinx.android.synthetic.main.auth_form_view.*
 import kotlinx.android.synthetic.main.auth_fragment.*
 
 

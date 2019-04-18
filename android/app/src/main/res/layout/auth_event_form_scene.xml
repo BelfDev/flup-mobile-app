@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+       tools:layout_width="match_parent"
+       tools:layout_height="300dp"
+       tools:layout_gravity="center">
+
+    <include
+            android:id="@+id/authEmployeeFormView"
+            layout="@layout/auth_employee_form_view"
+            android:layout_width="match_parent"
+            android:layout_height="243dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp">
+    </include>
+
+    <include
+            android:id="@+id/authEventFormView"
+            layout="@layout/auth_event_form_view"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="243dp"/>
+
+</merge>

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/authenticationContainer"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/background_image"
-        tools:context=".authentication.ui.AuthFragment">
+        tools:context=".authentication.ui.AuthFragment"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true">
 
-    <ImageView android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:src="@mipmap/logo"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               android:layout_marginTop="40dp"
-               android:contentDescription="@string/app_name"
-               android:id="@+id/imageView"/>
+    <ImageView
+            android:id="@+id/logoImageView"
+            android:src="@mipmap/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/app_name"/>
 
     <include
             android:id="@+id/authFormView"
@@ -31,7 +36,9 @@
             android:layout_marginStart="32dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/formFAB"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:elevation="8dp"

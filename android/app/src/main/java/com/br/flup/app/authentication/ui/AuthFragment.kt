@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.transition.*
 import com.br.flup.app.R
-import com.br.flup.app.authentication.ui.AuthFragment.AuthScene.EMPLOYEE
-import com.br.flup.app.authentication.ui.AuthFragment.AuthScene.EVENT
+import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EMPLOYEE
+import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
 import com.br.flup.app.core.extension.getViewModel
 import com.google.android.material.card.MaterialCardView
@@ -27,16 +27,17 @@ class AuthFragment : Fragment() {
         fun newInstance() = AuthFragment()
     }
 
-    private enum class AuthScene {
+    private enum class SceneType {
         EVENT, EMPLOYEE
     }
+
+    private var mCurrentSceneType: SceneType = EVENT
+    private lateinit var mEventFormScene: Scene
+    private lateinit var mEmployeeFormScene: Scene
 
     private val vm by lazy {
         getViewModel { AuthViewModel() }
     }
-
-    private lateinit var mEventFormScene: Scene
-    private lateinit var mEmployeeFormScene: Scene
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.auth_fragment, container, false)
@@ -66,22 +67,19 @@ class AuthFragment : Fragment() {
         transitionToScene(EMPLOYEE)
     }
 
-    private fun onEmployeeFormBackButtonClick() {
+    private fun onFormBackButtonClick() {
         transitionToScene(EVENT)
     }
 
-    private fun hideKeyboard() {
-        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-    }
-
-    private fun transitionToScene(scene: AuthScene) {
+    private fun transitionToScene(sceneType: SceneType) {
+        mCurrentSceneType = sceneType
         val transitionSet = TransitionSet()
         transitionSet.interpolator = FastOutSlowInInterpolator()
         transitionSet.ordering = TransitionSet.ORDERING_TOGETHER
 
-        when (scene) {
+        when (sceneType) {
             EMPLOYEE -> {
+                authFormFAB.setImageResource(R.drawable.ic_done)
                 val eventForm = mEventFormScene.sceneRoot[0] as MaterialCardView
 
                 transitionSet
@@ -90,14 +88,10 @@ class AuthFragment : Fragment() {
                     .addTransition(ChangeBounds())
 
                 TransitionManager.go(mEmployeeFormScene, transitionSet)
-
-                val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
-                val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
-                employeeForm.setCardBackgroundColor(pureWhiteColor)
-                employeeForm.content.visibility = View.VISIBLE
-                employeeForm.backButton.setOnClickListener { onEmployeeFormBackButtonClick() }
+                activateEmployeeForm()
             }
             EVENT -> {
+                authFormFAB.setImageResource(R.drawable.ic_arrow_forward)
                 val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
                 employeeForm.backButton.setOnClickListener(null)
 
@@ -110,4 +104,18 @@ class AuthFragment : Fragment() {
             }
         }
     }
+
+    private fun activateEmployeeForm() {
+        val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
+        val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
+        employeeForm.setCardBackgroundColor(pureWhiteColor)
+        employeeForm.content.visibility = View.VISIBLE
+        employeeForm.backButton.setOnClickListener { onFormBackButtonClick() }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
 }

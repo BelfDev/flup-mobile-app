@@ -64,7 +64,12 @@ class AuthFragment : Fragment() {
     }
 
     private fun onFABClick() {
-        transitionToScene(EMPLOYEE)
+        when (mCurrentSceneType) {
+            EVENT -> transitionToScene(EMPLOYEE)
+            EMPLOYEE -> {
+                println("DONE!")
+            }
+        }
     }
 
     private fun onFormBackButtonClick() {

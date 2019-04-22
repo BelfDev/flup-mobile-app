@@ -9,9 +9,8 @@
             android:id="@+id/authEmployeeFormView"
             layout="@layout/auth_employee_form_view"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
+            android:layout_height="248dp"
             android:layout_gravity="bottom"
-            android:layout_marginTop="4dp"
             tools:layout_gravity="center">
     </include>
 

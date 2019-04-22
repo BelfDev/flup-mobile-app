@@ -37,7 +37,7 @@
             android:layout_marginStart="32dp">
 
         <include
-                android:id="@+id/authFormEventScene"
+                android:id="@+id/authEventFormScene"
                 layout="@layout/auth_event_form_scene"/>
 
     </FrameLayout>

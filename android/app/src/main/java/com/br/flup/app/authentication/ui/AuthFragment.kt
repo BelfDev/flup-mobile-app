@@ -7,26 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator
-import androidx.transition.Fade
-import androidx.transition.Scene
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.transition.*
 import com.br.flup.app.R
+import com.br.flup.app.authentication.ui.AuthFragment.AuthScene.EMPLOYEE
+import com.br.flup.app.authentication.ui.AuthFragment.AuthScene.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
 import com.br.flup.app.core.extension.getViewModel
 import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
-import kotlinx.android.synthetic.main.auth_event_form_scene.*
 import kotlinx.android.synthetic.main.auth_fragment.*
-
 
 class AuthFragment : Fragment() {
 
     companion object {
         fun newInstance() = AuthFragment()
+    }
+
+    private enum class AuthScene {
+        EVENT, EMPLOYEE
     }
 
     private val vm by lazy {
@@ -56,12 +58,16 @@ class AuthFragment : Fragment() {
     }
 
     private fun setupScenes() {
-        mEventFormScene = Scene(formRootScene)
+        mEventFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_event_form_scene, requireContext())
         mEmployeeFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_employee_form_scene, requireContext())
     }
 
     private fun onFABClick() {
-        transitionToEmployeeScene()
+        transitionToScene(EMPLOYEE)
+    }
+
+    private fun onEmployeeFormBackButtonClick() {
+        transitionToScene(EVENT)
     }
 
     private fun hideKeyboard() {
@@ -69,44 +75,39 @@ class AuthFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-    private fun transitionToEmployeeScene() {
+    private fun transitionToScene(scene: AuthScene) {
         val transitionSet = TransitionSet()
-        val scaleTransition = Scale(1.2f).addTarget(authEventFormView)
-        val fadeTransition = Fade().addTarget(authEventFormView)
-
-        transitionSet
-            .addTransition(fadeTransition)
-            .addTransition(scaleTransition)
-        transitionSet.interpolator = FastOutLinearInInterpolator()
+        transitionSet.interpolator = FastOutSlowInInterpolator()
         transitionSet.ordering = TransitionSet.ORDERING_TOGETHER
 
-        TransitionManager.go(mEmployeeFormScene, transitionSet)
-        setupEmployeeFormView(isActive = true)
-    }
+        when (scene) {
+            EMPLOYEE -> {
+                val eventForm = mEventFormScene.sceneRoot[0] as MaterialCardView
 
-    private fun transitionToEventScene() {
-//        val transitionSet = TransitionSet()
-//        val scaleTransition = Scale(0.8f).addTarget(authEventFormView)
-//        val fadeTransition = Fade().addTarget(authEventFormView)
-//
-//        transitionSet
-//            .addTransition(fadeTransition)
-//            .addTransition(scaleTransition)
-//        transitionSet.interpolator = FastOutLinearInInterpolator()
-//        transitionSet.ordering = TransitionSet.ORDERING_TOGETHER
+                transitionSet
+                    .addTransition(Fade().addTarget(eventForm))
+                    .addTransition(Scale(1.2f).addTarget(eventForm))
+                    .addTransition(ChangeBounds())
 
-//        TransitionManager.go(mEmployeeFormScene, transitionSet)
-        TransitionManager.go(mEventFormScene)
-//        setupEmployeeFormView(isActive = true)
-    }
+                TransitionManager.go(mEmployeeFormScene, transitionSet)
 
-    private fun setupEmployeeFormView(isActive: Boolean) {
-        val employeeForm = authEmployeeFormView as MaterialCardView
-        if (isActive) {
-            val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
-            employeeForm.setCardBackgroundColor(pureWhiteColor)
-            employeeForm.content.visibility = View.VISIBLE
+                val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
+                val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
+                employeeForm.setCardBackgroundColor(pureWhiteColor)
+                employeeForm.content.visibility = View.VISIBLE
+                employeeForm.backButton.setOnClickListener { onEmployeeFormBackButtonClick() }
+            }
+            EVENT -> {
+                val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
+                employeeForm.backButton.setOnClickListener(null)
+
+                transitionSet
+                    .addTransition(Fade(Fade.MODE_OUT).addTarget(employeeForm))
+                    .addTransition(Scale(0.8f).addTarget(employeeForm))
+                    .addTransition(ChangeBounds())
+
+                TransitionManager.go(mEventFormScene, transitionSet)
+            }
         }
     }
-
 }

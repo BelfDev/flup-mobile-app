@@ -14,7 +14,7 @@
         <item name="colorError">@color/red</item>
         <item name="colorOnError">@color/whiteSmooth</item>
 
-        <item name="colorOnPrimary">@color/whiteSmooth</item>
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <item name="colorPrimaryVariant">@color/navyTealLight</item>

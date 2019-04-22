@@ -2,15 +2,16 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:tools="http://schemas.android.com/tools"
        tools:layout_width="match_parent"
-       tools:layout_height="300dp"
+       tools:layout_height="256dp"
        tools:layout_gravity="center">
 
     <include
             android:id="@+id/authEmployeeFormView"
-            layout="@layout/auth_event_form_view"
+            layout="@layout/auth_employee_form_view"
             android:layout_width="match_parent"
-            android:layout_height="243dp"
+            android:layout_height="256dp"
             android:layout_gravity="bottom"
+            android:layout_marginTop="4dp"
             tools:layout_gravity="center">
     </include>
 

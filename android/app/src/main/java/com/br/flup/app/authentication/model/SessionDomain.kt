@@ -6,7 +6,7 @@ enum class Role {
     CASHIER, BARTENDER, MANAGER
 }
 
-data class SignInForm(val identifier: String, val password: String)
+data class SignInForm(var identifier: String = "", var password: String = "")
 
 interface SignInResult
 

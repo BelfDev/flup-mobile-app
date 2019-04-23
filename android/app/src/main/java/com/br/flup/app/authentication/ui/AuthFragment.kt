@@ -48,7 +48,7 @@ class AuthFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<AuthFragmentBinding>(inflater, R.layout.auth_fragment, container, false)
-        binding.authViewModel = vm
+        binding.vm = vm
         return binding.root
     }
 
@@ -70,7 +70,7 @@ class AuthFragment : Fragment() {
     private fun setupScenes() {
         mEventFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_event_form_scene, requireContext())
         val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
-        eventFormBinding.authViewModel = vm
+        eventFormBinding.vm = vm
 
         mEmployeeFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_employee_form_scene, requireContext())
     }
@@ -96,8 +96,11 @@ class AuthFragment : Fragment() {
     }
 
     private fun onFABClick() {
+        println(vm.form.identifier)
+        println(vm.form.password)
         when (mCurrentSceneType) {
             EVENT -> {
+                vm.resetForm()
                 transitionToScene(EMPLOYEE)
             }
             EMPLOYEE -> {
@@ -108,6 +111,7 @@ class AuthFragment : Fragment() {
 
     private fun onFormBackButtonClick() {
         transitionToScene(EVENT)
+        vm.resetForm()
     }
 
     private fun transitionToScene(sceneType: SceneType) {
@@ -142,7 +146,7 @@ class AuthFragment : Fragment() {
 
                 TransitionManager.go(mEventFormScene, transitionSet)
                 val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
-                eventFormBinding.authViewModel = vm
+                eventFormBinding.vm = vm
             }
         }
     }
@@ -150,7 +154,7 @@ class AuthFragment : Fragment() {
     private fun activateEmployeeForm() {
         val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
         val binding = AuthEmployeeFormViewBinding.bind(employeeForm)
-        binding.authViewModel = vm
+        binding.vm = vm
 
         val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
         employeeForm.setCardBackgroundColor(pureWhiteColor)

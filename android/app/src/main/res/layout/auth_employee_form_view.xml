@@ -4,9 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-                name="authViewModel"
+                name="vm"
                 type="com.br.flup.app.authentication.viewmodel.AuthViewModel"/>
     </data>
 
@@ -90,6 +89,7 @@
                         android:textColor="@color/black"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
+                        android:text="@={vm.form.identifier}"
                         android:lines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -122,6 +122,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:inputType="textPassword"
+                        android:text="@={vm.form.password}"
                         android:maxLines="1"
                         android:lines="1"
                 />

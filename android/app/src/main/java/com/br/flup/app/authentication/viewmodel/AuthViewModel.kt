@@ -1,5 +1,6 @@
 package com.br.flup.app.authentication.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import com.belfortdev.hurbchallenge.core.extension.toLiveData
 import com.br.flup.app.authentication.data.SessionRepository
@@ -9,6 +10,8 @@ import com.br.flup.app.core.data.Outcome
 import com.br.flup.app.core.viewmodel.DisposingViewModel
 
 class AuthViewModel : DisposingViewModel() {
+
+    var form = SignInForm()
 
     private val repo = SessionRepository(compositeDisposable)
     
@@ -20,15 +23,25 @@ class AuthViewModel : DisposingViewModel() {
         repo.signInEmployeeOutcome.toLiveData(compositeDisposable)
     }
 
-    fun signInEvent(signInForm: SignInForm) {
-        if (signInEventOutcome.value == null) {
-            repo.signInEvent(signInForm)
+    fun signInEvent() {
+        if (signInEventOutcome.value == null && isFormValid()) {
+            repo.signInEvent(form)
         }
     }
 
-    fun signInEmployee(signInForm: SignInForm) {
-        if (signInEmployeeOutcome.value == null) {
-            repo.signInEmployee(signInForm)
+    fun signInEmployee() {
+        if (signInEmployeeOutcome.value == null && isFormValid()) {
+            repo.signInEmployee(form)
+        }
+    }
+
+    fun resetForm() {
+        form = SignInForm()
+    }
+
+    private fun isFormValid() : Boolean {
+        form.apply {
+            return identifier.isNotBlank() && password.isNotBlank()
         }
     }
 

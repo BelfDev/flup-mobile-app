@@ -46,7 +46,7 @@ dependencies {
 
     // Android
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Kotlin
@@ -85,9 +85,15 @@ dependencies {
     // Animations
     implementation "com.andkulikov:transitionseverywhere:2.0.0-beta01"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    // Shared Preferences - Kotpref
+    implementation "com.chibatching.kotpref:kotpref:$kot_pref_version"
+    implementation "com.chibatching.kotpref:initializer:$kot_pref_version"
+    implementation "com.chibatching.kotpref:enum-support:$kot_pref_version"
+    implementation "com.chibatching.kotpref:gson-support:$kot_pref_version"
+
+    testImplementation 'junit:junit:4.13-beta-2'
+    androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
 
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle_kapt_version"

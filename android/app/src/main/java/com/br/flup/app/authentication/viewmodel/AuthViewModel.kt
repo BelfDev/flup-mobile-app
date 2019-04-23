@@ -1,14 +1,15 @@
 package com.br.flup.app.authentication.viewmodel
 
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import com.belfortdev.hurbchallenge.core.extension.toLiveData
 import com.br.flup.app.authentication.data.SessionRepository
 import com.br.flup.app.authentication.model.Event
 import com.br.flup.app.authentication.model.SignInForm
 import com.br.flup.app.authentication.model.SignInResult
+import com.br.flup.app.authentication.model.User
 import com.br.flup.app.core.data.Outcome
+import com.br.flup.app.core.manager.SessionManager
 import com.br.flup.app.core.viewmodel.DisposingViewModel
 
 class AuthViewModel : DisposingViewModel() {
@@ -38,8 +39,11 @@ class AuthViewModel : DisposingViewModel() {
         }
     }
 
-    fun onSuccessfulEventSignIn(event: Event) {
-
+    fun onSuccessfulSignIn(result: SignInResult) {
+        when (result) {
+            is Event -> SessionManager.storeSessionInfo(form.identifier, result.token)
+            is User -> SessionManager.storeUserInfo(result)
+        }
         resetForm()
     }
 

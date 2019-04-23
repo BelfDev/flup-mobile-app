@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="vm"
                 type="com.br.flup.app.authentication.viewmodel.AuthViewModel"/>
@@ -26,13 +27,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminateTint="@color/navyTeal"
-                android:visibility="gone"/>
+                android:visibility="@{vm.isLoading ? View.VISIBLE : View.GONE, default = gone}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
+                android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE, default = visible}"
                 tools:visibility="visible">
 
             <ImageButton

@@ -13,7 +13,6 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.transition.*
 import com.br.flup.app.R
-import com.br.flup.app.authentication.model.Event
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EMPLOYEE
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
@@ -25,8 +24,6 @@ import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.content
-import kotlinx.android.synthetic.main.auth_event_form_scene.*
-import kotlinx.android.synthetic.main.auth_event_form_view.view.*
 import kotlinx.android.synthetic.main.auth_fragment.*
 
 
@@ -80,7 +77,7 @@ class AuthFragment : Fragment() {
             when (outcome) {
                 is Progress -> vm.isLoading.set(outcome.loading)
                 is Success -> {
-                    vm.onSuccessfulEventSignIn(outcome.data as Event)
+                    vm.onSuccessfulSignIn(outcome.data)
                     transitionToScene(EMPLOYEE)
                 }
                 is Failure -> {
@@ -93,8 +90,10 @@ class AuthFragment : Fragment() {
 
         vm.signInEmployeeOutcome.observe(this, Observer { outcome ->
             when (outcome) {
-                is Progress -> println("PROGRESS")
-                is Success -> println("SUCCESS")
+                is Progress -> vm.isLoading.set(outcome.loading)
+                is Success -> {
+                    vm.onSuccessfulSignIn(outcome.data)
+                }
                 is Failure -> println("FAILURE")
                 is Error -> println("ERROR")
             }
@@ -102,19 +101,15 @@ class AuthFragment : Fragment() {
     }
 
     private fun onFABClick() {
-        println(vm.form.identifier)
-        println(vm.form.password)
         when (mCurrentSceneType) {
             EVENT -> vm.signInEvent()
-            EMPLOYEE -> {
-                println("DONE!")
-            }
+            EMPLOYEE -> vm.signInEmployee()
         }
     }
 
     private fun onFormBackButtonClick() {
-        transitionToScene(EVENT)
         vm.resetForm()
+        transitionToScene(EVENT)
     }
 
     private fun transitionToScene(sceneType: SceneType) {

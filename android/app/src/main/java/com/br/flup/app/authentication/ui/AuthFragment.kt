@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.transition.*
 import com.br.flup.app.R
+import com.br.flup.app.authentication.model.Event
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EMPLOYEE
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
@@ -21,10 +21,12 @@ import com.br.flup.app.core.data.Outcome.*
 import com.br.flup.app.core.extension.getViewModel
 import com.br.flup.app.databinding.AuthEmployeeFormViewBinding
 import com.br.flup.app.databinding.AuthEventFormViewBinding
-import com.br.flup.app.databinding.AuthFragmentBinding
 import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
+import kotlinx.android.synthetic.main.auth_employee_form_view.view.content
+import kotlinx.android.synthetic.main.auth_event_form_scene.*
+import kotlinx.android.synthetic.main.auth_event_form_view.view.*
 import kotlinx.android.synthetic.main.auth_fragment.*
 
 
@@ -47,9 +49,7 @@ class AuthFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<AuthFragmentBinding>(inflater, R.layout.auth_fragment, container, false)
-        binding.vm = vm
-        return binding.root
+        return inflater.inflate(R.layout.auth_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -78,9 +78,15 @@ class AuthFragment : Fragment() {
     private fun setupBinding() {
         vm.signInEventOutcome.observe(this, Observer { outcome ->
             when (outcome) {
-                is Progress -> println("PROGRESS")
-                is Success -> println("SUCCESS")
-                is Failure -> println("FAILURE")
+                is Progress -> vm.isLoading.set(outcome.loading)
+                is Success -> {
+                    vm.onSuccessfulEventSignIn(outcome.data as Event)
+                    transitionToScene(EMPLOYEE)
+                }
+                is Failure -> {
+                    println("FAILURE")
+                    println(outcome.data)
+                }
                 is Error -> println("ERROR")
             }
         })
@@ -99,10 +105,7 @@ class AuthFragment : Fragment() {
         println(vm.form.identifier)
         println(vm.form.password)
         when (mCurrentSceneType) {
-            EVENT -> {
-                vm.resetForm()
-                transitionToScene(EMPLOYEE)
-            }
+            EVENT -> vm.signInEvent()
             EMPLOYEE -> {
                 println("DONE!")
             }

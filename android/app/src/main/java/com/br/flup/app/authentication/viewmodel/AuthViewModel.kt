@@ -11,7 +11,7 @@ import com.br.flup.app.core.viewmodel.DisposingViewModel
 class AuthViewModel : DisposingViewModel() {
 
     private val repo = SessionRepository(compositeDisposable)
-
+    
     val signInEventOutcome: LiveData<Outcome<SignInResult>> by lazy {
         repo.signInEventOutcome.toLiveData(compositeDisposable)
     }

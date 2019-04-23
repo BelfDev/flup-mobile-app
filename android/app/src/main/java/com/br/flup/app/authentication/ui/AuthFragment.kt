@@ -8,18 +8,25 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.Observer
 import androidx.transition.*
 import com.br.flup.app.R
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EMPLOYEE
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
+import com.br.flup.app.core.data.Outcome.*
 import com.br.flup.app.core.extension.getViewModel
+import com.br.flup.app.databinding.AuthEmployeeFormViewBinding
+import com.br.flup.app.databinding.AuthEventFormViewBinding
+import com.br.flup.app.databinding.AuthFragmentBinding
 import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
 import kotlinx.android.synthetic.main.auth_fragment.*
+
 
 class AuthFragment : Fragment() {
 
@@ -40,14 +47,16 @@ class AuthFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.auth_fragment, container, false)
+        val binding = DataBindingUtil.inflate<AuthFragmentBinding>(inflater, R.layout.auth_fragment, container, false)
+        binding.authViewModel = vm
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupListeners()
         setupScenes()
-        // Use viewModel here
+        setupBinding()
     }
 
     private fun setupListeners() {
@@ -60,12 +69,37 @@ class AuthFragment : Fragment() {
 
     private fun setupScenes() {
         mEventFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_event_form_scene, requireContext())
+        val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
+        eventFormBinding.authViewModel = vm
+
         mEmployeeFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_employee_form_scene, requireContext())
+    }
+
+    private fun setupBinding() {
+        vm.signInEventOutcome.observe(this, Observer { outcome ->
+            when (outcome) {
+                is Progress -> println("PROGRESS")
+                is Success -> println("SUCCESS")
+                is Failure -> println("FAILURE")
+                is Error -> println("ERROR")
+            }
+        })
+
+        vm.signInEmployeeOutcome.observe(this, Observer { outcome ->
+            when (outcome) {
+                is Progress -> println("PROGRESS")
+                is Success -> println("SUCCESS")
+                is Failure -> println("FAILURE")
+                is Error -> println("ERROR")
+            }
+        })
     }
 
     private fun onFABClick() {
         when (mCurrentSceneType) {
-            EVENT -> transitionToScene(EMPLOYEE)
+            EVENT -> {
+                transitionToScene(EMPLOYEE)
+            }
             EMPLOYEE -> {
                 println("DONE!")
             }
@@ -92,6 +126,7 @@ class AuthFragment : Fragment() {
                     .addTransition(Scale(1.2f).addTarget(eventForm))
                     .addTransition(ChangeBounds())
 
+
                 TransitionManager.go(mEmployeeFormScene, transitionSet)
                 activateEmployeeForm()
             }
@@ -106,12 +141,17 @@ class AuthFragment : Fragment() {
                     .addTransition(ChangeBounds())
 
                 TransitionManager.go(mEventFormScene, transitionSet)
+                val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
+                eventFormBinding.authViewModel = vm
             }
         }
     }
 
     private fun activateEmployeeForm() {
         val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
+        val binding = AuthEmployeeFormViewBinding.bind(employeeForm)
+        binding.authViewModel = vm
+
         val pureWhiteColor = ContextCompat.getColor(requireContext(), R.color.whitePure)
         employeeForm.setCardBackgroundColor(pureWhiteColor)
         employeeForm.content.visibility = View.VISIBLE
@@ -122,5 +162,4 @@ class AuthFragment : Fragment() {
         val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
-
 }

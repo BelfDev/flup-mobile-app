@@ -39,7 +39,7 @@ class AuthViewModel : DisposingViewModel() {
         }
     }
 
-    fun onSuccessfulSignIn(result: SignInResult) {
+    fun handleSuccessfulSignIn(result: SignInResult) {
         when (result) {
             is Event -> SessionManager.storeSessionInfo(form.identifier, result.token)
             is User -> SessionManager.storeUserInfo(result)

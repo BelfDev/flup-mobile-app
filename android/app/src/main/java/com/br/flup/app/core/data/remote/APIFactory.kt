@@ -1,6 +1,7 @@
 package com.br.flup.app.core.data.remote
 
 import com.br.flup.app.BuildConfig
+import com.br.flup.app.core.manager.SessionManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,10 +20,12 @@ object APIFactory {
         val newRequest = chain.request()
             .newBuilder()
             .url(newUrl)
-            .addHeader("Authorization", "Bearer " + "INSERT-TOKEN")
-            .build()
 
-        chain.proceed(newRequest)
+        SessionManager.sessionToken?.let { token ->
+            newRequest.addHeader("Authorization", "Bearer $token")
+        }
+
+        chain.proceed(newRequest.build())
     }
 
     private fun okHttpDefaultBuilder(): OkHttpClient.Builder {

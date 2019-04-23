@@ -77,7 +77,7 @@ class AuthFragment : Fragment() {
             when (outcome) {
                 is Progress -> vm.isLoading.set(outcome.loading)
                 is Success -> {
-                    vm.onSuccessfulSignIn(outcome.data)
+                    vm.handleSuccessfulSignIn(outcome.data)
                     transitionToScene(EMPLOYEE)
                 }
                 is Failure -> {
@@ -92,7 +92,7 @@ class AuthFragment : Fragment() {
             when (outcome) {
                 is Progress -> vm.isLoading.set(outcome.loading)
                 is Success -> {
-                    vm.onSuccessfulSignIn(outcome.data)
+                    vm.handleSuccessfulSignIn(outcome.data)
                 }
                 is Failure -> println("FAILURE")
                 is Error -> println("ERROR")

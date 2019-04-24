@@ -11,6 +11,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.transition.*
 import com.br.flup.app.R
 import com.br.flup.app.authentication.model.SignInFailure
@@ -49,6 +50,10 @@ class AuthFragment : Fragment() {
         getViewModel { AuthViewModel() }
     }
 
+    private val navController by lazy {
+        this.findNavController()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.auth_fragment, container, false)
     }
@@ -84,7 +89,7 @@ class AuthFragment : Fragment() {
                 is Progress -> vm.isLoading.set(outcome.loading)
                 is Success -> {
                     vm.handleSuccessfulSignIn(outcome.data)
-                    transitionBetweenScenes()
+                    if (mCurrentSceneType == EVENT) transitionBetweenScenes() else navController.navigate(R.id.action_auth_to_catalog)
                 }
                 is Failure -> {
                     val failure = outcome.data as SignInFailure

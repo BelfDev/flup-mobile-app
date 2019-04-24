@@ -1,16 +1,15 @@
 package com.br.flup.app.authentication.data
 
-import com.br.flup.app.core.data.Outcome
 import com.br.flup.app.authentication.model.SignInForm
 import com.br.flup.app.authentication.model.SignInResult
+import com.br.flup.app.core.data.Outcome
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 
 interface SessionDataContract {
 
     interface Repository {
-        val signInEventOutcome: PublishSubject<Outcome<SignInResult>>
-        val signInEmployeeOutcome: PublishSubject<Outcome<SignInResult>>
+        val signInOutcome: PublishSubject<Outcome<SignInResult>>
 
         fun signInEvent(signInForm: SignInForm)
         fun signInEmployee(signInForm: SignInForm)

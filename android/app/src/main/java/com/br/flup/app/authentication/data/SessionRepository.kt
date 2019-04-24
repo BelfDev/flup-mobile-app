@@ -13,42 +13,39 @@ class SessionRepository(private val compositeDisposable: CompositeDisposable) : 
     private val remote = SessionRemoteDataSource
     private val scheduler = AppScheduler()
 
-    override val signInEventOutcome: PublishSubject<Outcome<SignInResult>> =
-        PublishSubject.create<Outcome<SignInResult>>()
-
-    override val signInEmployeeOutcome: PublishSubject<Outcome<SignInResult>> =
+    override val signInOutcome: PublishSubject<Outcome<SignInResult>> =
         PublishSubject.create<Outcome<SignInResult>>()
 
     override fun signInEvent(signInForm: SignInForm) {
-        signInEventOutcome.loading(true)
+        signInOutcome.loading(true)
         remote.signInEvent(signInForm)
             .performOnBackOutOnMain(scheduler)
             .subscribe(
                 { result ->
                     when (result) {
-                        is Event -> signInEventOutcome.success(result)
-                        is SignInFailure -> signInEventOutcome.failed(result)
+                        is Event -> signInOutcome.success(result)
+                        is SignInFailure -> signInOutcome.failed(result)
                     }
                 },
                 { exception ->
-                    signInEventOutcome.error(exception)
+                    signInOutcome.error(exception)
                 }
             ).addTo(compositeDisposable)
     }
 
     override fun signInEmployee(signInForm: SignInForm) {
-        signInEmployeeOutcome.loading(true)
+        signInOutcome.loading(true)
         remote.signInEmployee(signInForm)
             .performOnBackOutOnMain(scheduler)
             .subscribe(
                 { result ->
                     when (result) {
-                        is User -> signInEventOutcome.success(result)
-                        is SignInFailure -> signInEventOutcome.failed(result)
+                        is User -> signInOutcome.success(result)
+                        is SignInFailure -> signInOutcome.failed(result)
                     }
                 },
                 { exception ->
-                    signInEventOutcome.error(exception)
+                    signInOutcome.error(exception)
                 }
             ).addTo(compositeDisposable)
     }

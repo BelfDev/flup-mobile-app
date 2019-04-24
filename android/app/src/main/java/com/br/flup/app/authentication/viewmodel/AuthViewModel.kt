@@ -4,10 +4,13 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import com.belfortdev.hurbchallenge.core.extension.toLiveData
 import com.br.flup.app.authentication.data.SessionRepository
+import com.br.flup.app.authentication.model.Event
+import com.br.flup.app.authentication.model.SignInForm
+import com.br.flup.app.authentication.model.SignInResult
+import com.br.flup.app.authentication.model.User
 import com.br.flup.app.core.data.Outcome
 import com.br.flup.app.core.manager.SessionManager
 import com.br.flup.app.core.viewmodel.DisposingViewModel
-import com.br.flup.app.authentication.model.*
 
 
 class AuthViewModel : DisposingViewModel() {
@@ -18,12 +21,8 @@ class AuthViewModel : DisposingViewModel() {
 
     private val repo = SessionRepository(compositeDisposable)
 
-    val signInEventOutcome: LiveData<Outcome<SignInResult>> by lazy {
-        repo.signInEventOutcome.toLiveData(compositeDisposable)
-    }
-
-    val signInEmployeeOutcome: LiveData<Outcome<SignInResult>> by lazy {
-        repo.signInEmployeeOutcome.toLiveData(compositeDisposable)
+    val signInOutcome: LiveData<Outcome<SignInResult>> by lazy {
+        repo.signInOutcome.toLiveData(compositeDisposable)
     }
 
     fun signInEvent() {

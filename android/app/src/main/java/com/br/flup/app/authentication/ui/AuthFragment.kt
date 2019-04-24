@@ -79,31 +79,16 @@ class AuthFragment : Fragment() {
     }
 
     private fun setupBinding() {
-        vm.signInEventOutcome.observe(this, Observer { outcome ->
+        vm.signInOutcome.observe(this, Observer { outcome ->
             when (outcome) {
                 is Progress -> vm.isLoading.set(outcome.loading)
                 is Success -> {
                     vm.handleSuccessfulSignIn(outcome.data)
-                    transitionToScene(EMPLOYEE)
+                    transitionBetweenScenes()
                 }
                 is Failure -> {
                     val failure = outcome.data as SignInFailure
                     authEventFormView.eventErrorView.errorFeedback.text = failure.errorMessage
-                    showErrorView()
-                }
-                is Error -> showErrorView()
-            }
-        })
-
-        vm.signInEmployeeOutcome.observe(this, Observer { outcome ->
-            when (outcome) {
-                is Progress -> vm.isLoading.set(outcome.loading)
-                is Success -> {
-                    vm.handleSuccessfulSignIn(outcome.data)
-                }
-                is Failure -> {
-                    val failure = outcome.data as SignInFailure
-                    authEmployeeFormView.employeeErrorView.errorFeedback.text = failure.errorMessage
                     showErrorView()
                 }
                 is Error -> showErrorView()
@@ -120,7 +105,7 @@ class AuthFragment : Fragment() {
 
     private fun onFormBackButtonClick() {
         vm.resetForm()
-        transitionToScene(EVENT)
+        transitionBetweenScenes()
     }
 
     private fun onRetryButtonClick() {
@@ -128,14 +113,13 @@ class AuthFragment : Fragment() {
         authFormFAB.visibility = View.VISIBLE
     }
 
-    private fun transitionToScene(sceneType: SceneType) {
-        mCurrentSceneType = sceneType
+    private fun transitionBetweenScenes() {
         val transitionSet = TransitionSet()
         transitionSet.interpolator = FastOutSlowInInterpolator()
         transitionSet.ordering = TransitionSet.ORDERING_TOGETHER
 
-        when (sceneType) {
-            EMPLOYEE -> {
+        when (mCurrentSceneType) {
+            EVENT -> {
                 authFormFAB.setImageResource(R.drawable.ic_done)
                 val eventForm = mEventFormScene.sceneRoot[1] as MaterialCardView
                 eventForm.eventErrorView.retryButton.setOnClickListener(null)
@@ -148,8 +132,9 @@ class AuthFragment : Fragment() {
 
                 TransitionManager.go(mEmployeeFormScene, transitionSet)
                 activateEmployeeForm()
+                mCurrentSceneType = EMPLOYEE
             }
-            EVENT -> {
+            EMPLOYEE -> {
                 authFormFAB.setImageResource(R.drawable.ic_arrow_forward)
                 val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
                 employeeForm.backButton.setOnClickListener(null)
@@ -162,6 +147,7 @@ class AuthFragment : Fragment() {
 
                 TransitionManager.go(mEventFormScene, transitionSet)
                 activateEventForm()
+                mCurrentSceneType = EVENT
             }
         }
     }

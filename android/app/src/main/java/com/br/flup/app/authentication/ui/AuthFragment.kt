@@ -88,7 +88,7 @@ class AuthFragment : Fragment() {
                 }
                 is Failure -> {
                     val failure = outcome.data as SignInFailure
-                    authEventFormView.eventErrorView.errorFeedback.text = failure.errorMessage
+                    setErrorFeedback(failure.errorMessage)
                     showErrorView()
                 }
                 is Error -> showErrorView()
@@ -111,6 +111,8 @@ class AuthFragment : Fragment() {
     private fun onRetryButtonClick() {
         vm.isFailure.set(false)
         authFormFAB.visibility = View.VISIBLE
+        val defaultErrorFeedback = context?.resources?.getString(R.string.default_error_feedback)
+        defaultErrorFeedback?.let { setErrorFeedback(it) }
     }
 
     private fun transitionBetweenScenes() {
@@ -174,6 +176,11 @@ class AuthFragment : Fragment() {
     private fun showErrorView() {
         vm.isFailure.set(true)
         authFormFAB.visibility = View.GONE
+    }
+
+    private fun setErrorFeedback(feedback: String) {
+        authEventFormView.eventErrorView.errorFeedback.text = feedback
+        authEmployeeFormView.employeeErrorView.errorFeedback.text = feedback
     }
 
     private fun hideKeyboard() {

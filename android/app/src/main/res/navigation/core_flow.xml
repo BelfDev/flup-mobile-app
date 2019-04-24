@@ -5,5 +5,9 @@
             app:startDestination="@id/authFragment">
 
     <fragment android:id="@+id/authFragment" android:name="com.br.flup.app.authentication.ui.AuthFragment"
-              android:label="auth_fragment" tools:layout="@layout/auth_fragment"/>
+              android:label="auth_fragment" tools:layout="@layout/auth_fragment">
+        <action android:id="@+id/action_authFragment_to_catalogFragment" app:destination="@id/catalogFragment"/>
+    </fragment>
+    <fragment android:id="@+id/catalogFragment" android:name="com.br.flup.app.catalog.ui.CatalogFragment"
+              android:label="CatalogFragment"/>
 </navigation>

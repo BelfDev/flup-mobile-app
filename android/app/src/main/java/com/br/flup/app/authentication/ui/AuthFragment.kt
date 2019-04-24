@@ -13,6 +13,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.transition.*
 import com.br.flup.app.R
+import com.br.flup.app.authentication.model.SignInFailure
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EMPLOYEE
 import com.br.flup.app.authentication.ui.AuthFragment.SceneType.EVENT
 import com.br.flup.app.authentication.viewmodel.AuthViewModel
@@ -24,6 +25,9 @@ import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.content
+import kotlinx.android.synthetic.main.auth_error_view.view.*
+import kotlinx.android.synthetic.main.auth_event_form_scene.*
+import kotlinx.android.synthetic.main.auth_event_form_view.view.*
 import kotlinx.android.synthetic.main.auth_fragment.*
 
 
@@ -51,12 +55,12 @@ class AuthFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupListeners()
+        setupContainerListeners()
         setupScenes()
         setupBinding()
     }
 
-    private fun setupListeners() {
+    private fun setupContainerListeners() {
         authContainer.setOnTouchListener { _, _ ->
             hideKeyboard()
             false
@@ -66,8 +70,10 @@ class AuthFragment : Fragment() {
 
     private fun setupScenes() {
         mEventFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_event_form_scene, requireContext())
-        val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
+        val eventForm = mEventFormScene.sceneRoot[1]
+        val eventFormBinding = AuthEventFormViewBinding.bind(eventForm)
         eventFormBinding.vm = vm
+        eventForm.retryButton.setOnClickListener { onRetryButtonClick() }
 
         mEmployeeFormScene = Scene.getSceneForLayout(formRootScene, R.layout.auth_employee_form_scene, requireContext())
     }
@@ -81,10 +87,11 @@ class AuthFragment : Fragment() {
                     transitionToScene(EMPLOYEE)
                 }
                 is Failure -> {
-                    println("FAILURE")
-                    println(outcome.data)
+                    val failure = outcome.data as SignInFailure
+                    authEventFormView.eventErrorView.errorFeedback.text = failure.errorMessage
+                    showErrorView()
                 }
-                is Error -> println("ERROR")
+                is Error -> showErrorView()
             }
         })
 
@@ -94,8 +101,12 @@ class AuthFragment : Fragment() {
                 is Success -> {
                     vm.handleSuccessfulSignIn(outcome.data)
                 }
-                is Failure -> println("FAILURE")
-                is Error -> println("ERROR")
+                is Failure -> {
+                    val failure = outcome.data as SignInFailure
+                    authEmployeeFormView.employeeErrorView.errorFeedback.text = failure.errorMessage
+                    showErrorView()
+                }
+                is Error -> showErrorView()
             }
         })
     }
@@ -112,6 +123,11 @@ class AuthFragment : Fragment() {
         transitionToScene(EVENT)
     }
 
+    private fun onRetryButtonClick() {
+        vm.isFailure.set(false)
+        authFormFAB.visibility = View.VISIBLE
+    }
+
     private fun transitionToScene(sceneType: SceneType) {
         mCurrentSceneType = sceneType
         val transitionSet = TransitionSet()
@@ -121,7 +137,8 @@ class AuthFragment : Fragment() {
         when (sceneType) {
             EMPLOYEE -> {
                 authFormFAB.setImageResource(R.drawable.ic_done)
-                val eventForm = mEventFormScene.sceneRoot[0] as MaterialCardView
+                val eventForm = mEventFormScene.sceneRoot[1] as MaterialCardView
+                eventForm.eventErrorView.retryButton.setOnClickListener(null)
 
                 transitionSet
                     .addTransition(Fade().addTarget(eventForm))
@@ -136,6 +153,7 @@ class AuthFragment : Fragment() {
                 authFormFAB.setImageResource(R.drawable.ic_arrow_forward)
                 val employeeForm = mEmployeeFormScene.sceneRoot[0] as MaterialCardView
                 employeeForm.backButton.setOnClickListener(null)
+                employeeForm.employeeErrorView.retryButton.setOnClickListener(null)
 
                 transitionSet
                     .addTransition(Fade(Fade.MODE_OUT).addTarget(employeeForm))
@@ -143,8 +161,7 @@ class AuthFragment : Fragment() {
                     .addTransition(ChangeBounds())
 
                 TransitionManager.go(mEventFormScene, transitionSet)
-                val eventFormBinding = AuthEventFormViewBinding.bind(mEventFormScene.sceneRoot[1])
-                eventFormBinding.vm = vm
+                activateEventForm()
             }
         }
     }
@@ -158,6 +175,19 @@ class AuthFragment : Fragment() {
         employeeForm.setCardBackgroundColor(pureWhiteColor)
         employeeForm.content.visibility = View.VISIBLE
         employeeForm.backButton.setOnClickListener { onFormBackButtonClick() }
+        employeeForm.employeeErrorView.retryButton.setOnClickListener { onRetryButtonClick() }
+    }
+
+    private fun activateEventForm() {
+        val eventForm = mEventFormScene.sceneRoot[1]
+        val eventFormBinding = AuthEventFormViewBinding.bind(eventForm)
+        eventFormBinding.vm = vm
+        eventForm.eventErrorView.retryButton.setOnClickListener { onRetryButtonClick() }
+    }
+
+    private fun showErrorView() {
+        vm.isFailure.set(true)
+        authFormFAB.visibility = View.GONE
     }
 
     private fun hideKeyboard() {

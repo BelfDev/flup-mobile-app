@@ -4,18 +4,17 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import com.belfortdev.hurbchallenge.core.extension.toLiveData
 import com.br.flup.app.authentication.data.SessionRepository
-import com.br.flup.app.authentication.model.Event
-import com.br.flup.app.authentication.model.SignInForm
-import com.br.flup.app.authentication.model.SignInResult
-import com.br.flup.app.authentication.model.User
 import com.br.flup.app.core.data.Outcome
 import com.br.flup.app.core.manager.SessionManager
 import com.br.flup.app.core.viewmodel.DisposingViewModel
+import com.br.flup.app.authentication.model.*
+
 
 class AuthViewModel : DisposingViewModel() {
 
     var form = SignInForm()
     var isLoading = ObservableBoolean(false)
+    var isFailure = ObservableBoolean(false)
 
     private val repo = SessionRepository(compositeDisposable)
 

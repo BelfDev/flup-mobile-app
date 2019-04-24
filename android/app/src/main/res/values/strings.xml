@@ -6,6 +6,7 @@
     <string name="username_hint_employee">Funcionário</string>
     <string name="back_button_description">Voltar</string>
     <string name="scene_title_employee">Login do Funcionário</string>
-    <string name="retry_button_title">Tentar de novo</string>
+    <string name="retry_button_title">Tentar novamente</string>
     <string name="error_feedback_title">Oops</string>
+    <string name="default_error_feedback">ocorreu um erro</string>
 </resources>

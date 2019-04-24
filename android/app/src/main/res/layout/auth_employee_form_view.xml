@@ -30,15 +30,17 @@
                 android:visibility="@{vm.isLoading ? View.VISIBLE : View.GONE, default = gone}"/>
 
         <include
-                android:id="@+id/errorView"
-                layout="@layout/auth_error_view"/>
+                android:id="@+id/employeeErrorView"
+                layout="@layout/auth_error_view"
+                android:visibility="@{vm.isFailure() ? View.VISIBLE : View.GONE, default = gone}"
+                tools:visibility="visible"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE, default = gone}"
-                tools:visibility="gone">
+                android:visibility="@{(vm.isLoading || vm.isFailure) ? View.GONE : View.VISIBLE, default = gone}"
+                tools:visibility="visible">
 
             <ImageButton
                     android:id="@+id/backButton"

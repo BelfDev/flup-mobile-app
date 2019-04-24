@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="12dp"/>
 
     <TextView
             android:id="@+id/errorFeedback"
@@ -32,13 +32,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18sp"
-            android:text="Usuário e senha incorretos"
+            android:text="@string/default_error_feedback"
             android:lines="2"
             android:textColor="@color/gray"
             android:layout_marginHorizontal="32dp"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-    />
+            android:layout_marginTop="32dp"/>
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/retryButton"
@@ -46,6 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="8dp"/>
 
 </FrameLayout>

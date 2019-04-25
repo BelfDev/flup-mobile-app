@@ -24,7 +24,7 @@ class CatalogFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         logoutButton.setOnClickListener {
             SessionManager.clearSession()
-            navController.navigate(R.id.action_catalogFragment_pop)
+            navController.navigateUp()
         }
     }
 

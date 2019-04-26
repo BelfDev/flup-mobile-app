@@ -20,8 +20,9 @@
         <action
                 android:id="@+id/action_onboarding_to_catalog"
                 app:destination="@id/catalogFragment"
-                app:popUpTo="@layout/onboarding_fragment"
+                app:popUpTo="@id/onboardingFragment"
                 app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment android:id="@+id/authFragment"
@@ -44,7 +45,9 @@
 
         <action
                 android:id="@+id/action_catalog_to_auth"
-                app:destination="@+id/authFragment"/>
+                app:destination="@+id/authFragment"
+                app:popUpTo="@id/catalogFragment"
+                app:popUpToInclusive="true"/>
 
     </fragment>
 

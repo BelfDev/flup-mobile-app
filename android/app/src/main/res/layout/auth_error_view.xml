@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_width="match_parent"
+        tools:layout_height="256dp"
+        tools:layout_gravity="center"
+        tools:background="@color/whiteDark">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_error"/>
+
+    <TextView
+            android:textSize="24sp"
+            android:text="@string/error_feedback_title"
+            android:textStyle="bold"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"/>
+
+    <TextView
+            android:id="@+id/errorFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="@string/default_error_feedback"
+            android:lines="2"
+            android:textColor="@color/gray"
+            android:layout_marginHorizontal="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/retryButton"
+            android:text="@string/retry_button_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="8dp"/>
+
+</FrameLayout>

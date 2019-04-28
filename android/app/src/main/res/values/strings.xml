@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Flup</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="password_hint">Senha</string>
+    <string name="username_hint_event">Evento</string>
+    <string name="username_hint_employee">Funcionário</string>
+    <string name="back_button_description">Voltar</string>
+    <string name="scene_title_employee">Login do Funcionário</string>
+    <string name="retry_button_title">Tentar novamente</string>
+    <string name="error_feedback_title">Oops</string>
+    <string name="default_error_feedback">ocorreu um erro</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

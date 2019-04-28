@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.br.flup.app.R
 import com.br.flup.app.core.manager.SessionManager
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.core_activity.*
 import kotlinx.android.synthetic.main.catalog_fragment.*
 
 class CatalogFragment : Fragment() {

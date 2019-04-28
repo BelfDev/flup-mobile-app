@@ -24,7 +24,7 @@ import com.br.flup.app.databinding.AuthEmployeeFormViewBinding
 import com.br.flup.app.databinding.AuthEventFormViewBinding
 import com.google.android.material.card.MaterialCardView
 import com.transitionseverywhere.extra.Scale
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.core_activity.*
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.*
 import kotlinx.android.synthetic.main.auth_employee_form_view.view.content
 import kotlinx.android.synthetic.main.auth_error_view.view.*

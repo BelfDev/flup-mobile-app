@@ -1,9 +1,7 @@
 package com.br.flup.app.catalog.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -24,7 +22,7 @@ class CatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActivityAppearance()
+        setupBottomAppBar()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,20 +32,23 @@ class CatalogFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         logoutButton.setOnClickListener {
             SessionManager.clearSession()
             navController.navigateUp()
         }
     }
 
-    private fun setupActivityAppearance() {
+    private fun setupBottomAppBar() {
         val activity = (requireActivity() as AppCompatActivity)
         activity?.let {
             it.bottomAppBar?.visibility = View.VISIBLE
             it.mainFAB?.visibility = View.VISIBLE
-            it.setSupportActionBar(bottomAppBar)
-            it.bottomAppBar.replaceMenu(R.menu.menu_bottom_app_bar)
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_app_bar, menu)
+    }
+
 }

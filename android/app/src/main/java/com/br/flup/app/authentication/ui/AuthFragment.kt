@@ -59,15 +59,19 @@ class AuthFragment : Fragment() {
         return inflater.inflate(R.layout.auth_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setupActivityAppearance()
-        setupContainerListeners()
-        setupScenes()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupBottomAppBar()
         setupBinding()
     }
 
-    private fun setupActivityAppearance() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setupContainerListeners()
+        setupScenes()
+    }
+
+    private fun setupBottomAppBar() {
         activity?.let {
             it.bottomAppBar?.visibility = View.GONE
             it.mainFAB?.visibility = View.GONE

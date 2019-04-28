@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.br.flup.app.R
 import com.br.flup.app.core.manager.SessionManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.catalog_fragment.*
 
 class CatalogFragment : Fragment() {
@@ -20,12 +22,32 @@ class CatalogFragment : Fragment() {
         return inflater.inflate(R.layout.catalog_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupActivityAppearance()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         logoutButton.setOnClickListener {
             SessionManager.clearSession()
             navController.navigateUp()
         }
     }
 
+    private fun setupActivityAppearance() {
+        val activity = (requireActivity() as AppCompatActivity)
+        activity?.let {
+            it.bottomAppBar?.visibility = View.VISIBLE
+            it.mainFAB?.visibility = View.VISIBLE
+            it.setSupportActionBar(bottomAppBar)
+            it.bottomAppBar.replaceMenu(R.menu.menu_bottom_app_bar)
+        }
+    }
 }

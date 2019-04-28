@@ -15,6 +15,10 @@
             app:navGraph="@navigation/core_flow"
             app:defaultNavHost="true"/>
 
+    <include
+            android:id="@+id/topAppBar"
+            layout="@layout/core_top_app_bar"/>
+
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"

@@ -43,7 +43,7 @@ class CatalogFragment : Fragment() {
         activity?.let {
             it.bottomAppBar?.visibility = View.VISIBLE
             it.mainFAB?.visibility = View.VISIBLE
-            it.topAppBar.visibility = View.VISIBLE
+            it.topAppBarLayout.visibility = View.VISIBLE
         }
     }
 

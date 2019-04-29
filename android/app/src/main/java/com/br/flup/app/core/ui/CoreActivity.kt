@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.br.flup.app.R
 import kotlinx.android.synthetic.main.core_activity.*
+import kotlinx.android.synthetic.main.core_top_app_bar.*
 
 class CoreActivity : AppCompatActivity() {
 

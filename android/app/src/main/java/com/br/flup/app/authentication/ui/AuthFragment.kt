@@ -75,7 +75,7 @@ class AuthFragment : Fragment() {
         activity?.let {
             it.bottomAppBar?.visibility = View.GONE
             it.mainFAB?.visibility = View.GONE
-            it.topAppBar.visibility = View.GONE
+            it.topAppBarLayout.visibility = View.GONE
         }
     }
 

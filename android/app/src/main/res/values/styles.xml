@@ -30,18 +30,49 @@
 
         <item name="bottomAppBarStyle">@style/FlupBottomAppBar</item>
 
+        <item name="textAppearanceHeadline3">@style/FlupHeadline3</item>
+        <item name="textAppearanceHeadline5">@style/FlupHeadline5</item>
+
     </style>
+
+    <!--Top App Bar-->
+
+    <style name="FlupTopAppBarLayout" parent="Widget.Design.AppBarLayout">
+        <item name="android:backgroundTint">@color/whiteSmooth</item>
+    </style>
+
+    <!--Bottom App Bar-->
 
     <style name="FlupBottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
         <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="materialThemeOverlay">@style/AppThemeOverlay.BottomAppBar</item>
     </style>
 
-    <!-- This requires that our VD assets be tinted with colorControlNormal -->
-    <!-- See: https://issuetracker.google.com/issues/127454210 -->
     <style name="AppThemeOverlay.BottomAppBar" parent="ThemeOverlay.MaterialComponents.BottomAppBar.Primary">
         <item name="colorControlNormal">@color/whitePure</item>
         <item name="actionMenuTextColor">@color/whitePure</item>
+    </style>
+
+    <!--Typography-->
+
+    <style name="FlupHeadline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/blackSmooth</item>
+    </style>
+
+    <style name="FlupHeadline3" parent="TextAppearance.AppCompat.Display2">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/blackSmooth</item>
     </style>
 
 </resources>

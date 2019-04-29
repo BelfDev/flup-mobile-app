@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.AppBarLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/FlupTopAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/whiteSmooth">
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="120dp"
+            app:expandedTitleGravity="top"
+            app:expandedTitleMarginStart="8dp"
+            app:expandedTitleMarginTop="8dp"
+            app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline5"
+            app:expandedTitleTextAppearance="?attr/textAppearanceHeadline3"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="Produtos"/>
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 </com.google.android.material.appbar.AppBarLayout>

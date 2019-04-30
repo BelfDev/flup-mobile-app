@@ -4,7 +4,7 @@ interface ProductResult
 
 data class Product(
     val id: String,
-    val category: String,
+    val category: String?,
     val name: String,
     val price: Int,
     val visible: Boolean,

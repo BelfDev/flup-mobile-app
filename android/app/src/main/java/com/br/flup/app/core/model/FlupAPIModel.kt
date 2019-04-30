@@ -55,10 +55,9 @@ interface ProductResponse : DomainMappable<ProductResult> {
 
 data class ProductSuccessResponse(
     @SerializedName("_id") val id: String,
-    @SerializedName("category") val category: String,
+    @SerializedName("category") val category: String?,
     @SerializedName("name") val name: String,
     @SerializedName("price") val price: Int,
-    @SerializedName("cost") val cost: Int,
     @SerializedName("displayOnPdv") val visible: Boolean,
     @SerializedName("image") val image: String,
     @SerializedName("isMealProduct") val isMealProduct: Boolean,

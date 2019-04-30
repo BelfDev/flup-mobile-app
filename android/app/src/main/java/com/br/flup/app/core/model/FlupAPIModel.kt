@@ -1,7 +1,7 @@
 package com.br.flup.app.core.model
 
 import com.br.flup.app.authentication.model.*
-import com.br.flup.app.catalog.model.CatalogResult
+import com.br.flup.app.catalog.model.ProductResult
 import com.br.flup.app.catalog.model.Product
 import com.google.gson.annotations.SerializedName
 import java.util.*
@@ -49,11 +49,11 @@ data class Employee(
     @SerializedName("role") val roles: List<String>
 )
 
-interface CatalogResponse : DomainMappable<CatalogResult> {
-    override fun asDomain(): CatalogResult
+interface ProductResponse : DomainMappable<ProductResult> {
+    override fun asDomain(): ProductResult
 }
 
-data class GetProductsSuccessReponse(
+data class ProductSuccessResponse(
     @SerializedName("_id") val id: String,
     @SerializedName("category") val category: String,
     @SerializedName("name") val name: String,
@@ -64,13 +64,12 @@ data class GetProductsSuccessReponse(
     @SerializedName("isMealProduct") val isMealProduct: Boolean,
     @SerializedName("lowStock") val lowStock: Int,
     @SerializedName("stock") val stock: Int
-) : CatalogResponse {
-    override fun asDomain(): CatalogResult = Product(
+) : ProductResponse {
+    override fun asDomain(): ProductResult = Product(
         id,
         category,
         name,
         price,
-        cost,
         visible,
         image,
         isMealProduct,

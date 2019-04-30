@@ -15,5 +15,5 @@ interface FlupAPI {
     fun signInEmployee(@Body employeeSignInRequest: EmployeeSignInRequest): Single<EmployeeSignInSuccessResponse>
 
     @GET("products")
-    fun getProducts() : Single<GetProductsSuccessReponse>
+    fun getProducts() : Single<List<ProductSuccessResponse>>
 }

@@ -1,0 +1,16 @@
+package com.br.flup.app.catalog.model
+
+interface CatalogResult
+
+data class Product(
+    val id: String,
+    val category: String,
+    val name: String,
+    val price: Int,
+    val cost: Int,
+    val visible: Boolean,
+    val image: String,
+    val isMealProduct: Boolean,
+    val lowStock: Int,
+    val stock: Int
+) : CatalogResult

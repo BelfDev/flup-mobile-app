@@ -1,11 +1,9 @@
 package com.br.flup.app.core.data.remote
 
-import com.br.flup.app.core.model.EmployeeSignInRequest
-import com.br.flup.app.core.model.EmployeeSignInSuccessResponse
-import com.br.flup.app.core.model.EventSignInRequest
-import com.br.flup.app.core.model.EventSignInSuccessResponse
+import com.br.flup.app.core.model.*
 import io.reactivex.Single
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface FlupAPI {
@@ -16,4 +14,6 @@ interface FlupAPI {
     @POST("employe-login")
     fun signInEmployee(@Body employeeSignInRequest: EmployeeSignInRequest): Single<EmployeeSignInSuccessResponse>
 
+    @GET("products")
+    fun getProducts() : Single<GetProductsSuccessReponse>
 }

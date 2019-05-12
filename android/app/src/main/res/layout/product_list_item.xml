@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/whitePure"
+        app:cardCornerRadius="4dp"
+        tools:layout_height="175dp"
+        tools:layout_width="168dp"
+        tools:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/thumbImageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@tools:sample/avatars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="40dp"
+                android:contentDescription="Product Image"/>
+
+        <TextView
+                android:id="@+id/titleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/thumbImageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Redbull"/>
+
+        <TextView
+                android:id="@+id/priceTag"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:text="R$8,00"
+                android:textColor="@color/whitePure"
+                android:gravity="center"
+                android:background="@drawable/price_tag"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintBottom_toBottomOf="@id/thumbImageView"
+                android:layout_marginEnd="16dp"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayDark"
+                app:layout_constraintBottom_toTopOf="@id/titleTextView"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+        <TextView
+                android:id="@+id/quantityBadge"
+                android:background="@drawable/quantity_badge"
+                android:gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="26dp"
+                android:text="9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+
